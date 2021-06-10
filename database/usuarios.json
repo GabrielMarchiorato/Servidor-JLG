@@ -1,0 +1,42 @@
+[
+    {
+        "codigo": 1,
+        "nome": "Administrador",
+        "cpf": "123.456.789-10",
+        "renda": "mais de 4,20k",
+        "email": "admin@email.com",
+        "senha": "Admin@123*",
+        "privilegio": "adm",
+        "planoId": 3
+    },
+    {
+        "codigo": 2,
+        "nome": "User",
+        "cpf": "019.876.543-21",
+        "renda": "menos de 3k",
+        "email": "user@email.com",
+        "senha": "User@123*",
+        "privilegio": "standard",
+        "planoId": 1
+    },
+    {
+        "codigo": 3,
+        "nome": "Gabriel",
+        "cpf": "111.222.333-44",
+        "renda": "igual a 3k",
+        "email": "gabigol@email.com",
+        "senha": "Gabriel@123#",
+        "privilegio": "standard",
+        "planoId": 3
+    },
+    {
+        "codigo": 4,
+        "nome": "Lucas",
+        "cpf": "444.333.222-11",
+        "renda": "mais de 4,20k",
+        "email": "raulin@email.com",
+        "senha": "Luquinhasl@420#",
+        "privilegio": "adm",
+        "planoId": 3
+    }
+]

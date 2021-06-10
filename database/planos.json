@@ -1,0 +1,29 @@
+[
+    {
+        "codigo": 1,
+        "cartao": "./assets/imagens/cartao-azul.png",
+        "titulo": "Plano Blue",
+        "ponto-um": "Sem taxas mensais",
+        "ponto-dois": "Credito de até 1500 reais",
+        "ponto-tres": "Cobertura nacional",
+        "ponto-quatro": "Renda minima não será exigida"
+    },
+    {
+        "codigo": 2,
+        "cartao": "./assets/imagens/cartao-dourado.png",
+        "titulo": "Plano Gold",
+        "ponto-um": "Taxa mensal de 22 reais",
+        "ponto-dois": "Credito de até 3000 reais",
+        "ponto-tres": "Cobertura nacional",
+        "ponto-quatro": "Renda minima exigida de 2300 reais"
+    },
+    {
+        "codigo": 3,
+        "cartao": "./assets/imagens/cartao-preto.png",
+        "titulo": "Plano Black",
+        "ponto-um": "Taxa mensal de 54 reais",
+        "ponto-dois": "Credito de até 7000 reais",
+        "ponto-tres": "Cobertura internacional",
+        "ponto-quatro": "Renda minima exigida de 4200 reais"
+    }
+]
