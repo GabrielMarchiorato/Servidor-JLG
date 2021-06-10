@@ -7,7 +7,7 @@
         "email": "admin@email.com",
         "senha": "Admin@123*",
         "privilegio": "adm",
-        "planoId": 3
+        "accountId": 3
     },
     {
         "codigo": 2,
@@ -17,7 +17,7 @@
         "email": "user@email.com",
         "senha": "User@123*",
         "privilegio": "standard",
-        "planoId": 1
+        "accountId": 1
     },
     {
         "codigo": 3,
@@ -27,7 +27,7 @@
         "email": "gabigol@email.com",
         "senha": "Gabriel@123#",
         "privilegio": "standard",
-        "planoId": 3
+        "accountId": 3
     },
     {
         "codigo": 4,
@@ -37,6 +37,6 @@
         "email": "raulin@email.com",
         "senha": "Luquinhasl@420#",
         "privilegio": "adm",
-        "planoId": 3
+        "accountId": 3
     }
 ]
