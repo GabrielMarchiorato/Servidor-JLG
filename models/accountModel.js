@@ -1,3 +1,15 @@
 const mongoose = require('mongoose');
-const accountSchema = require('./schemas/accountSchema')
-module.exports = mongoose.model('plano', accountSchema);
+const accountSchema = new mongoose.Schema(
+    {
+        codigo: { type: Number, required: [true, "Obrigatório dado -> Código <- !"] },
+        cartao: { type: String, required: [true, "Obrigatório dado -> Cartão <- !"] },
+        titulo: { type: String, required: [true, "Obrigatório dado -> Título <- !"] },
+        descUm: { type: String, required: [true, "Obrigatório dado -> Descrição Um <- !"] },
+        descDois: { type: String, required: [true, "Obrigatório dado -> Descrição Dois <- !"] },
+        descTres: { type: String, required: [true, "Obrigatório dado -> Descrição Tres <- !"] },
+        descQuatro: { type: String, required: [true, "Obrigatório dado -> Descrição Quatro <- !"] }
+    }
+);
+
+module.exports = mongoose.model('account', accountSchema);
+

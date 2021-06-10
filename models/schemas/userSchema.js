@@ -35,9 +35,9 @@ const userSchema = new mongoose.Schema(
             select: false
         },
         privilegio: String,
-        planoId: {
+        accountId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'plano'
+            ref: 'account'
         }
     }
 );
