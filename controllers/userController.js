@@ -1,4 +1,5 @@
 const userModel = require('../models/userModel');
+const auth = require('../auth/auth');
 
 class userController {
 

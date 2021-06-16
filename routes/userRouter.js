@@ -37,4 +37,6 @@ router.delete('/:codigo', userController.excluir);
 //   res.status(204).send();
 // });
 
+router.post('/login', userController.login);
+
 module.exports = router;
