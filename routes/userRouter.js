@@ -1,13 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const auth = require('../auth/auth');
+
+router.use(auth.autorizar);
 
 router.get('/', userController.listar);
 // router.get('/', function (req, res, next) {
 //   res.json(usuarios);
 // });
 
-router.get('/:codigo', userController.buscarPorCodigo);
+router.get('/:usuarioId/:codigo', userController.buscarPorCodigo);
 // router.get('/:codigo', function (req, res, next) {
 //   let id = req.params.codigo;
 //   let usuario = usuarios[getIndex(id)];

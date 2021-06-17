@@ -38,8 +38,18 @@ const userSchema = new mongoose.Schema(
         accountId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'account'
+        },
+        dtaCriacao: {
+            type: Date,
+            default: Date.now
         }
     }
 );
+
+userSchema.pre('save', async function(next){
+    const hash = await bcryptjs.has(this.senha, 10);
+    this.senha = hash;
+    next();
+});
 
 module.exports = userSchema;

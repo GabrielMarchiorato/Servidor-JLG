@@ -25,7 +25,7 @@ app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/accounts', accountRouter);
-app.use('/users', userRouter);
+app.use('/auth', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
