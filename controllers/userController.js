@@ -6,7 +6,7 @@ class userController {
 
     async login(req, res){
         const { email, senha } = req.body;
-        const usuario = await userModel.findOne({'email': email}).select
+        const usuario = await userModel.findOne({'email': email}).select('+senha');
         
         if(!usuario){
             res.status(400).send({error: 'Usuário não encontrado!'});
@@ -36,13 +36,13 @@ class userController {
         const max = await userModel.findOne({}).sort({codigo: -1});
         user.codigo = max == null ? 1 : max.codigo + 1;
         
-        if(await userModel.findOne({'email': usuario.email})) {
+        if(await userModel.findOne({'email': user.email})) {
             res.status(400).send({error: 'Usuário já cadastrado!'});  
         }  
 
-        const resultado = await userModel.create(usuario);
+        const resultado = await userModel.create(user);
         const token = auth.gerarToken(resultado);
-        res.status(201).json({id: usuario._id, nome: usuario.nome, email: usuario.email, token: token});   
+        res.status(201).json({id: user._id, nome: user.nome, email: user.email, token: token});   
     }
     async atualizar(req, res){
         const codigo = req.params.codigo;

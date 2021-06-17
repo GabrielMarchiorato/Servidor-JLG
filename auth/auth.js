@@ -9,9 +9,9 @@ function gerarToken(usuario){
 
 function autorizar(req, res, next){
      const authHeader = req.headers.authorization;
-    // if(!authHeader){
-    //     return res.status(401).send({error: 'O token não foi enviado!'});
-    // }
+     if(!authHeader){
+         return res.status(401).send({error: 'O token não foi enviado!'});
+     }
 
     const partes = authHeader.split(' ');
     if(partes.lenght !== 2 ){
