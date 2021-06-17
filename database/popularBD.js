@@ -19,7 +19,7 @@ async function carregarDados() {
             await accountModel.findOne(
                 { codigo: usuario.accountId },
                 async (err, account) => {
-                    usuario.accountId  = account.id;
+                    usuario.accountId  = account._id;
                 }
             );
             await userModel.create(usuario);
