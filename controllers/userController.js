@@ -15,20 +15,23 @@ class userController {
             res.status(400).send({ error: 'Senha inválida!' });
         }
         await auth.incluirToken(usuario);
-        // console.log(usuario.token);
-        res.status(201).json(usuario.token);
+        res.status(200).json(usuario);
     }
+
     async listar(req, res) {
         const resultado = await userModel.find({});
+        // auth.autorizar(req, res);
         res.status(200).json(resultado);
     }
+
     async buscarPorCodigo(req, res) {
         const codigo = req.params.codigo;
         const resultado = await userModel.findOne({ 'codigo': codigo });
         res.status(200).json(resultado);
     }
+
     async salvar(req, res) {
-        let user = req.body;
+        const user = req.body;
         const max = await userModel.findOne({}).sort({ codigo: -1 });
         user.codigo = max == null ? 1 : max.codigo + 1;
 
@@ -38,8 +41,9 @@ class userController {
 
         const resultado = await userModel.create(user);
         const token = auth.incluirToken(resultado);
-        res.status(201).json({ id: user._id, nome: user.nome, email: user.email, token: token });
+        res.status(201).json({ id: user._id, nome: resultado.nome, email: resultado.email, token: token });
     }
+
     async atualizar(req, res) {
         const codigo = req.params.codigo;
         const _id = String((await userModel.findOne({ 'codigo': codigo }))._id);
@@ -47,6 +51,7 @@ class userController {
         await userModel.findByIdAndUpdate(String(_id), usuario);
         res.status(200).send();
     }
+
     async excluir(req, res) {
         const codigo = req.params.codigo;
         const _id = String((await userModel.findOne({ 'codigo': codigo }))._id);

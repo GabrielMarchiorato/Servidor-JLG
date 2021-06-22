@@ -18,7 +18,7 @@ async function gerarHash(usuario) {
     return usuario;
 }
 
-function autorizar(req, res, next) {
+function autorizar(req, res) {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
         return res.status(401).send({ error: 'O token não foi enviado!' });
@@ -38,7 +38,7 @@ function autorizar(req, res, next) {
             return res.status(401).send({ error: 'Token inválido!' });
         }
         req.usuarioLogadoId = usuario.id;
-        return next();
+        // return next();
     });
 }
 

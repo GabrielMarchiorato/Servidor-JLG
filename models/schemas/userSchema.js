@@ -42,13 +42,17 @@ const userSchema = new mongoose.Schema(
         dtaCriacao: {
             type: Date,
             default: Date.now
+        },
+        token: {
+            type: String,
+            select: false
         }
     }
 );
 
-userSchema.pre('save', async function(next){
-    const hash = await bcryptjs.hash(this.senha, 10);
-    this.senha = hash;
+userSchema.pre('save', async function (next) {
+        const hash = await bcryptjs.hash(this.senha, 10);
+        this.senha = hash;
     next();
 });
 
