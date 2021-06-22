@@ -15,8 +15,8 @@ class userController {
             res.status(400).send({ error: 'Senha inválida!' });
         }
         await auth.incluirToken(usuario);
-        console.log(usuario.token);
-        res.status(201).json(usuario);
+        // console.log(usuario.token);
+        res.status(201).json(usuario.token);
     }
     async listar(req, res) {
         const resultado = await userModel.find({});
