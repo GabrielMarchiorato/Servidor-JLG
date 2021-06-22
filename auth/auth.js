@@ -1,31 +1,41 @@
 const jwt = require('jsonwebtoken');
 const auth = require('./app.json');
+const bcryptjs = require('bcryptjs');
 
-function gerarToken(usuario){
-    return jwt.sign({id : usuario.id}, auth.appId, {
+async function incluirToken(usuario) {
+    const token = await jwt.sign({ id: usuario.id }, auth.appId, {
         expiresIn: 3600
     });
+    usuario.token = token;
+    usuario.senha = undefined;
 }
 
-function autorizar(req, res, next){
-     const authHeader = req.headers.authorization;
-     if(!authHeader){
-         return res.status(401).send({error: 'O token não foi enviado!'});
-     }
+async function gerarHash(usuario) {
+    if (typeof usuario.senha !== 'undefined') {
+        const hash = await bcryptjs.hash(usuario.senha, 10);
+        usuario.senha = hash;
+    }
+    return usuario;
+}
+
+function autorizar(req, res, next) {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+        return res.status(401).send({ error: 'O token não foi enviado!' });
+    }
 
     const partes = authHeader.split(' ');
-    if(partes.lenght !== 2 ){
-        return res.status(401).send({error: 'Token incompleto!'});
+    if (partes && partes.length !== 2) {
+        return res.status(401).send({ error: 'Token incompleto!' });
     }
 
-    const {tipo, token} = partes;
-    if(!/^Bearer$/i.test(tipo)){
-        return res.status(401).send({error: 'Token mal formado!'});
+    const [tipo, token] = partes;
+    if (!/^Bearer$/i.test(tipo)) {
+        return res.status(401).send({ error: 'Token mal formado!' });
     }
-
     jwt.verify(token, auth.appId, (err, usuario) => {
-        if (err){
-            return res.status(401).send({error: 'Token inválido!'});
+        if (err) {
+            return res.status(401).send({ error: 'Token inválido!' });
         }
         req.usuarioLogadoId = usuario.id;
         return next();
@@ -33,6 +43,7 @@ function autorizar(req, res, next){
 }
 
 module.exports = {
-    gerarToken,
+    incluirToken,
+    gerarHash,
     autorizar
-}
+};

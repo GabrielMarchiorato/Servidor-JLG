@@ -8,22 +8,29 @@ const userModel = require("../models/userModel");
 const usuarios = require("./usuarios.json");
 
 async function carregarDados() {
-    await accountModel.deleteMany({}, async () => {
-        await accounts.forEach(async (account) => {
+    try {
+        await accountModel.deleteMany({});
+        for (const account of accounts) {
             await accountModel.create(account);
-        });
-    });
+        }
+        console.log("Carga de contas concluída!");
 
-    await userModel.deleteMany({}, async () => {
-        await usuarios.forEach(async (usuario) => {
-            await accountModel.findOne(
-                { codigo: usuario.accountId },
-                async (err, account) => {
-                    usuario.accountId  = account._id;
-                }
-            );
-            await userModel.create(usuario);
-        });
-    });
+        await userModel.deleteMany({});
+        for (const usuario of usuarios) {
+            await accountModel
+                .findOne({ codigo: usuario.accountId })
+                .then((accountId) => {
+                    usuario.accountId = accounts._id;
+                    return usuario;
+                }).then(async (usuario) => {
+                    await userModel.create(usuario);
+                });
+        }
+        console.log("Carga de usuarios concluída!");
+    } catch (err) {
+        console.log(err);
+    } finally {
+        process.exit();
+    }
 }
-carregarDados ();
+carregarDados();

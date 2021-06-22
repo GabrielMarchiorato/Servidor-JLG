@@ -3,9 +3,9 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const auth = require('../auth/auth');
 
-
+router.get('/', auth.autorizar);
 router.get('/', userController.listar);
-router.get('/:usuarioId/:codigo', userController.buscarPorCodigo);
+router.get('/:codigo', userController.buscarPorCodigo);
 router.post('/', userController.salvar);
 router.post('/login', userController.login);
 router.put('/:codigo', userController.atualizar);
