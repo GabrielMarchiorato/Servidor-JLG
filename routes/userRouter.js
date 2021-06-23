@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
 
-router.get('/', userController.listar);
+const auth = require('../auth/auth');
+
+router.get('/', auth.autorizar, userController.listar);
 router.get('/:codigo', userController.buscarPorCodigo);
 router.post('/', userController.salvar);
 router.post('/login', userController.login);

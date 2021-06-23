@@ -42,10 +42,6 @@ const userSchema = new mongoose.Schema(
         dtaCriacao: {
             type: Date,
             default: Date.now
-        },
-        token: {
-            type: String,
-            select: false
         }
     }
 );

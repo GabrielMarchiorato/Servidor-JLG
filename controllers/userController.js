@@ -5,7 +5,9 @@ const bcryptjs = require('bcryptjs');
 class userController {
     async login(req, res) {
         const { email, senha } = req.body;
-        const usuario = await userModel.findOne({ 'email': email }).select('+senha');
+        let usuario = await userModel.findOne({ 'email': email }).select('+senha');
+        console.log(usuario);
+        
 
         if (!usuario) {
             res.status(400).send({ error: 'Usuário não encontrado!' });
@@ -14,13 +16,12 @@ class userController {
         if (!await bcryptjs.compare(senha, usuario.senha)) {
             res.status(400).send({ error: 'Senha inválida!' });
         }
-        await auth.incluirToken(usuario);
+        usuario = await auth.incluirToken(usuario);
         res.status(200).json(usuario);
     }
 
     async listar(req, res) {
         const resultado = await userModel.find({});
-        // auth.autorizar(req, res);
         res.status(200).json(resultado);
     }
 
@@ -39,9 +40,10 @@ class userController {
             res.status(400).send({ error: 'Usuário já cadastrado!' });
         }
 
+        // user.token = undefined;
         const resultado = await userModel.create(user);
         const token = auth.incluirToken(resultado);
-        res.status(201).json({ id: user._id, nome: resultado.nome, email: resultado.email, token: token });
+        res.status(200).json(token);
     }
 
     async atualizar(req, res) {

@@ -6,8 +6,9 @@ async function incluirToken(usuario) {
     const token = await jwt.sign({ id: usuario.id }, auth.appId, {
         expiresIn: 3600
     });
-    usuario.token = token;
-    usuario.senha = undefined;
+    usuario._doc.token = token;
+    usuario._doc.appIdsenha = undefined;
+    return usuario
 }
 
 async function gerarHash(usuario) {
@@ -18,7 +19,7 @@ async function gerarHash(usuario) {
     return usuario;
 }
 
-function autorizar(req, res) {
+function autorizar(req, res, next) {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
         return res.status(401).send({ error: 'O token não foi enviado!' });
@@ -38,7 +39,7 @@ function autorizar(req, res) {
             return res.status(401).send({ error: 'Token inválido!' });
         }
         req.usuarioLogadoId = usuario.id;
-        // return next();
+        return next();
     });
 }
 
