@@ -19,8 +19,9 @@ async function carregarDados() {
         for (const usuario of usuarios) {
             await accountModel
                 .findOne({ codigo: usuario.accountId })
-                .then((accountId) => {
-                    usuario.accountId = accounts._id;
+                .then(accountId => {
+                    usuario.accountId= accountId._id;
+                    console.log(usuario.accountId);
                     return usuario;
                 }).then(async (usuario) => {
                     await userModel.create(usuario);

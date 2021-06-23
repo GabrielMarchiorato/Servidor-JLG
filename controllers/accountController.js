@@ -14,6 +14,11 @@ class accountController {
         res.status(201).json(resultado);   
     }
 
+    async buscarPorCodigo(req, res) {
+        const codigo = req.params.codigo;
+        const resultado = await accountModel.findOne({ 'codigo': codigo });
+        res.status(200).json(resultado);
+    }
 };
 
 module.exports = new accountController();

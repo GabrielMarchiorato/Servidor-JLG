@@ -1,4 +1,5 @@
 const userModel = require('../models/userModel');
+const accountModel = require('../models/accountModel');
 const auth = require('../auth/auth');
 const bcryptjs = require('bcryptjs');
 
@@ -6,8 +7,6 @@ class userController {
     async login(req, res) {
         const { email, senha } = req.body;
         let usuario = await userModel.findOne({ 'email': email }).select('+senha');
-        console.log(usuario);
-        
 
         if (!usuario) {
             res.status(400).send({ error: 'Usuário não encontrado!' });
@@ -33,6 +32,12 @@ class userController {
 
     async salvar(req, res) {
         const user = req.body;
+        await accountModel
+            .findOne({ codigo: user.accountId })
+            .then(accountId => {
+                user.accountId = accountId._id;
+            });
+
         const max = await userModel.findOne({}).sort({ codigo: -1 });
         user.codigo = max == null ? 1 : max.codigo + 1;
 
@@ -43,7 +48,7 @@ class userController {
         // user.token = undefined;
         const resultado = await userModel.create(user);
         const token = auth.incluirToken(resultado);
-        res.status(200).json(token);
+        res.status(200).json(resultado);
     }
 
     async atualizar(req, res) {
